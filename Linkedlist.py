@@ -184,6 +184,47 @@ class LinkedList:
                 prev.next = temp.next.next
                 temp = None 
                 
+    def swap_nodes(self, x, y):
+        current_x = self.head 
+        prev_x = None 
+         
+        while current_x and current_x.data != x:
+            prev_x = current_x
+            current_x = current_x.next 
+        
+        current_y = self.head 
+        prev_y = None 
+        
+        while current_y and current_y.data != y:
+            prev_y = current_y
+            current_y = current_y.next 
+        
+        if current_x == current_y == None:
+            return 
+
+        if prev_x != None:
+            prev_x.next = current_y
+        else:
+            self.head = current_y
+        
+        if prev_y != None:
+            prev_y.next = current_x
+        else:
+            self.head = current_x
+
+
+        temp = current_x.next
+        current_x.next = current_y.next 
+        current_y.next = temp 
+    
+    def pairwise_swap(self):
+        temp = self.head 
+        while temp.next:
+            temp.data, temp.next.data = temp.next.data, temp.data 
+            temp = temp.next.next 
+
+
+                
         
     def printlist(self):
         temp = self.head
@@ -198,16 +239,16 @@ if __name__ == "__main__":
     llist = LinkedList() 
     llist.head = Node(1)
     second = Node(2)
-    third = Node(2)
-    fourth = Node(2)
-    fifth = Node(3)
+    third = Node(3)
+    fourth = Node(4)
+    fifth = Node(5)
     llist.head.next = second
     second.next = third
     third.next = fourth
     fourth.next = fifth
     llist.printlist()
     print()
-    llist.delete_duplicate_node()
-    #llist.delete_duplicate_node_unsorted()
-    llist.printlist()
+    llist.pairwise_swap()
     print()
+    llist.printlist()
+ 

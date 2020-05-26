@@ -1,3 +1,4 @@
+from collections import Counter
 class Target:
     def __init__(self, nums, index):
         self.nums = nums 
@@ -66,29 +67,136 @@ class Lowercase:
         return str2
 
 
-class Max69:
-    def __init__(self,num):
-        self.num = num 
+class Skyline:
+    def __init__(self, grid):
+        self.grid = grid 
     
-    def check(self):
+    def maxIncrease(self):
+        max_row = []
+        max_column = [] 
+        maxRow = 0 
+        k = 0 
+        sum = 0 
+        for i in range(len(self.grid)):
+            for j in self.grid[i]:
+                if j >= maxRow:
+                    maxRow = j
+            max_row.append(maxRow)
+            maxRow = 0
+
+        while k < len(self.grid):
+            res = [sub[k] for sub in self.grid]
+            max_column.append(max(res))
+            k += 1
+
+        for i in range(len(self.grid)):
+            for j in range(len(self.grid[i])):
+                current_val = self.grid[i][j]
+                diff = 0 
+                self.grid[i][j] = min(max_row[i],max_column[j])
+                diff = self.grid[i][j] - current_val
+                sum += diff
+        return sum
+
+
+class Node:
+    def __init__(self,data):
+        self.data = data 
+        self.next = None 
+    
+class LinkedList:
+    def __init__(self):
+        self.head = None 
+    
+    def toDecimal(self):
+        string = ""
+        sum = 0 
+        temp = self.head
+        while temp:
+            string += str(temp.data)
+            temp = temp.next 
+        for i in range(len(string)-1, -1, -1):
+            decimal = int(string[i])*(2**(len(string)-1-i))
+            sum += decimal
+        return sum 
+    
+lyst = LinkedList()
+lyst.head = Node(1)
+second = Node(0)
+third = Node(1)
+lyst.head.next = second
+second.next = third
+print(lyst.toDecimal())
+
+
+class Permutation:
+    def __init__(self, queries, m):
+        self.queries = queries
+        self.m = m 
+    def process(self):
         i = 0 
-        maximum = 0 
-        number = str(self.num)
-        while i <= len(number):
-            if number[i] == '6':
-                number[i] = '9' 
-            else:
-                number[i] = '6' 
-            number = int(number)
-
-            if number >= maximum:
-                maximum = number 
-            number = str(self.num)
+        output = []
+        p = [i for i in range(1,self.m+1)]
+        while i < len (self.queries):
+            number = self.queries[i]
+            for j in p:
+                if j == number:
+                    output.append(p.index(j))
+                    p.remove(j)
+                    p.insert(0,j)
             i += 1 
-        return maximum 
+        return output
+                
+permutation = Permutation([7,5,5,8,3], 8)
+print(permutation.process())
 
-max = Max69(9669)
-print(max.check())
+class Maximum69:
+    def __init__(self, num):
+        self.num = num 
+    def replace(self):
+        strNum = [str(i) for i in str(self.num)]
+        max = self.num 
+        i = 0 
+        new_no = ""
+        while i < len(strNum):
+            if strNum[i] == '9':
+                strNum[i] = '6'
+            else:
+                strNum[i] = '9'
+            for j in strNum:
+                new_no += j 
+            print(new_no)
+            if int(new_no) >= max:
+                max = int(new_no)
+            strNum = [str(i) for i in str(self.num)]
+            new_no = ""
+            i += 1
+
+
+        return max 
+
+max69 = Maximum69(9999)
+print(max69.replace())
+
+print(1%2)
+
+
+
+
+
+
+
+
+
+
+            
+            
+            
+            
+
+        
+
+
             
             
 
