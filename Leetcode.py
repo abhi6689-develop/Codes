@@ -1,4 +1,6 @@
 from collections import Counter
+import math 
+import copy 
 class Target:
     def __init__(self, nums, index):
         self.nums = nums 
@@ -120,13 +122,13 @@ class LinkedList:
             sum += decimal
         return sum 
     
-lyst = LinkedList()
-lyst.head = Node(1)
-second = Node(0)
-third = Node(1)
-lyst.head.next = second
-second.next = third
-print(lyst.toDecimal())
+# lyst = LinkedList()
+# lyst.head = Node(1)
+# second = Node(0)
+# third = Node(1)
+# lyst.head.next = second
+# second.next = third
+# print(lyst.toDecimal())
 
 
 class Permutation:
@@ -147,8 +149,8 @@ class Permutation:
             i += 1 
         return output
                 
-permutation = Permutation([7,5,5,8,3], 8)
-print(permutation.process())
+# permutation = Permutation([7,5,5,8,3], 8)
+# print(permutation.process())
 
 class Maximum69:
     def __init__(self, num):
@@ -175,12 +177,140 @@ class Maximum69:
 
         return max 
 
-max69 = Maximum69(9999)
-print(max69.replace())
-
-print(1%2)
+# max69 = Maximum69(9999)
+# print(max69.replace())
 
 
+class LuckyNumber:
+    def __init__(self, matrix):
+        self.matrix = matrix 
+    
+    def isLucky(self):
+        lowest_in_row = float("inf") 
+        lows = []
+        highs = []
+        output = [] 
+        for i in self.matrix:
+            for j in i:
+                if j <= lowest_in_row:
+                    lowest_in_row = j
+            lows.append(lowest_in_row)
+            lowest_in_row = float("inf")
+
+        n = len(self.matrix[0])
+
+        for i in range(n):
+            res = [blob[i] for blob in self.matrix]
+            highs.append(max(res))
+
+        for i in self.matrix:
+            for j in i:
+                if j in highs and j in lows:
+                    output.append(j)
+        return output
+
+    
+class Partition:
+    def __init__(self, nums,n):
+        self.n = n 
+        self.nums = nums 
+    
+    def arrayPartition(self):
+        sortNums = sorted(self.nums)
+        i = 0 
+        j = 0
+        sum = 0 
+        pairs = []
+        output = []
+        while i < len(sortNums):
+            while j < self.n:
+                pairs.append(sortNums[i])
+                i += 1
+                j += 1 
+            output.append(pairs)
+            pairs = []
+            j = 0  
+        for i in output:
+            sum += min(i)
+            
+        return sum
+# part = Partition([1,1], 2)   
+# print(part.arrayPartition())     
+
+class BuildAStack:
+    def __init__(self, target, n):
+        self.target = target 
+        self.n = n 
+
+    def stack(self):
+        output = [] 
+        for i in range(1, self.n+1):
+            if i > self.target[-1]:
+                break
+            if i in self.target:
+                output.append("Push")
+            else:
+                output.append("Push")
+                output.append("Pop")
+        return output
+    
+# build = BuildAStack([1,2],4)
+# print(build.stack())
+
+class Palindrome:
+    def __init__(self, num):
+        self.num = num 
+
+    def check(self):
+        num2 = copy.deepcopy(self.num)
+        print(num2)
+        sum = 0 
+        while self.num:
+            x = self.num % 10
+            sum += x * (10**int(math.log(self.num, 10)))
+            self.num = self.num // 10 
+        
+        print("Sum:",sum)
+        print(type(sum))
+        return sum == num2
+    
+
+# palin = Palindrome(121)
+# print(palin.check())
+
+class KweakestRow:
+    def __init__(self, mat, k):
+        self.mat = mat 
+        self.k = k 
+    
+    def calculate(self):
+        sum = 0
+        strengths = []
+        output = []
+        for i in range(len(self.mat)):
+            for j in self.mat[i]:
+                if j == 0:
+                    break 
+                sum += j 
+            strengths.append([i,sum])
+            sum = 0 
+
+        strengths.sort(key=lambda x: (x[1],x[0]))
+        for i in range(self.k):
+            output.append(strengths[i][0])
+        return output
+
+
+kweak = KweakestRow([[1,1,0,0,0],
+ [1,1,1,1,0],
+ [1,0,0,0,0],
+ [1,1,0,0,0],
+ [1,1,1,1,1]], 3)
+
+print(kweak.calculate())
+
+a = [1,5,2,6,1,7]
+print(sorted(a)[::-1][0])
 
 
 

@@ -222,33 +222,60 @@ class LinkedList:
         while temp.next:
             temp.data, temp.next.data = temp.next.data, temp.data 
             temp = temp.next.next 
+    
+    def swapFirst(self): 
+        temp = self.head 
+        while temp.next:
+            secondlast = temp
+            temp = temp.next 
+        secondlast.next = None
+        temp.next = self.head 
+        self.head = temp  
 
-
-                
         
     def printlist(self):
         temp = self.head
         while temp:
             print(temp.data, end = "->")
             temp = temp.next 
+        
 
 
 
-if __name__ == "__main__":
+llist = LinkedList() 
+llist.head = Node(1)
+second = Node(2)
+third = Node(3)
+fourth = Node(4)
+fifth = Node(5)
+llist2 = LinkedList()
+llist2.head = Node(2)
+second1 = Node(3)
+third1 = Node(4)
+fourth1 = Node(5)
+fifth1 = Node(6)
+llist2.head.next = second1
+second1.next = third1
+third1.next = fourth1
+fourth1.next = fifth1
+llist.head.next = second
+second.next = third
+third.next = fourth
+fourth.next = fifth
+llist.printlist()
+print()
+llist2.printlist()
+print()
 
-    llist = LinkedList() 
-    llist.head = Node(1)
-    second = Node(2)
-    third = Node(3)
-    fourth = Node(4)
-    fifth = Node(5)
-    llist.head.next = second
-    second.next = third
-    third.next = fourth
-    fourth.next = fifth
-    llist.printlist()
-    print()
-    llist.pairwise_swap()
-    print()
-    llist.printlist()
- 
+class Intersection:
+    def __init__(self,lyst1,lyst2):
+        self.lyst1 = lyst1
+        self.lyst2 = lyst2
+    
+    def print(self):
+        print(self.lyst1.head.data)
+        print(self.lyst2.head.data)
+    
+inter = Intersection(llist,llist2)
+inter.print()
+
